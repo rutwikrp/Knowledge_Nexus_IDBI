@@ -1,5 +1,9 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+backend/__pycache__/
+backend/api/__pycache__/
+backend/api/routers/__pycache__/
+   
 *.py[codz]
 *$py.class
 
