@@ -4,18 +4,16 @@ import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 
 export default function AppLayout() {
-
     return (
-
-        <div className="flex">
+        <div className="flex h-screen overflow-hidden">
 
             <Sidebar />
 
-            <div className="flex-1">
+            <div className="flex flex-1 flex-col overflow-hidden">
 
                 <Navbar />
 
-                <main className="p-8 bg-slate-50 min-h-screen">
+                <main className="flex-1 overflow-hidden bg-slate-50 p-8">
 
                     <Outlet />
 
@@ -24,7 +22,5 @@ export default function AppLayout() {
             </div>
 
         </div>
-
     );
-
 }

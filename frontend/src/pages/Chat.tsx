@@ -1,6 +1,8 @@
 import { useState } from "react";
 import ChatInput from "@/components/chat/ChatInput";
 import { askQuestion } from "@/services/chatService";
+import type { ChatMessage } from "@/types/chat";
+import ChatWindow from "@/components/chat/ChatWindow";
 
 export default function Chat() {
 
@@ -8,19 +10,47 @@ export default function Chat() {
 
     const [loading, setLoading] = useState(false);
 
-    const [answer, setAnswer] = useState("");
+    const [messages, setMessages] = useState<ChatMessage[]>([]);
 
     async function handleSend() {
 
         if (!question.trim()) return;
 
+        const userMessage: ChatMessage = {
+
+            id: crypto.randomUUID(),
+
+            role: "user",
+
+            content: question,
+
+        };
+
+        setMessages((prev) => [...prev, userMessage]);
+
+        const currentQuestion = question;
+
+        setQuestion("");
+
         setLoading(true);
 
         try {
 
-            const response = await askQuestion(question);
+            const response = await askQuestion(currentQuestion);
 
-            setAnswer(response.answer);
+            const assistantMessage: ChatMessage = {
+
+                id: crypto.randomUUID(),
+
+                role: "assistant",
+
+                content: response.answer,
+
+                sources: response.sources,
+
+            };
+
+            setMessages((prev) => [...prev, assistantMessage]);
 
         } finally {
 
@@ -31,49 +61,37 @@ export default function Chat() {
     }
 
     return (
+        <div className="flex h-full flex-col">
 
-        <div className="space-y-8">
+            <div className="shrink-0 pb-5">
 
-            <div>
-
-                <h1 className="text-3xl font-bold">
-
+                <h1 className="text-4xl font-bold">
                     AI Knowledge Assistant
-
                 </h1>
 
-                <p className="text-gray-500">
-
+                <p className="mt-2 text-gray-500">
                     Ask questions about your uploaded documents.
-
                 </p>
 
             </div>
 
-            <ChatInput
+            <div className="flex-1 overflow-hidden">
 
-                value={question}
+                <ChatWindow messages={messages} />
 
-                onChange={setQuestion}
+            </div>
 
-                onSend={handleSend}
+            <div className="shrink-0 border-t bg-white px-6 py-5">
 
-                loading={loading}
+                <ChatInput
+                    value={question}
+                    onChange={setQuestion}
+                    onSend={handleSend}
+                    loading={loading}
+                />
 
-            />
-
-            {answer && (
-
-                <div className="rounded-lg border p-6 whitespace-pre-wrap">
-
-                    {answer}
-
-                </div>
-
-            )}
+            </div>
 
         </div>
-
     );
-
 }

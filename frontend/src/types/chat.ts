@@ -10,12 +10,14 @@ export interface Source {
 
 }
 
-export interface ChatResponse {
+export interface ChatMessage {
 
-    question: string;
+    id: string;
 
-    answer: string;
+    role: "user" | "assistant";
 
-    sources: Source[];
+    content: string;
+
+    sources?: Source[];
 
 }

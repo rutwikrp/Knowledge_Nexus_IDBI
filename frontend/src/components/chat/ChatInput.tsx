@@ -28,31 +28,28 @@ export default function ChatInput({
 
     return (
 
-        <div className="flex gap-4">
+        <div className="flex items-end gap-3">
 
             <Input
+                className="h-14 rounded-xl text-base px-5"
                 value={value}
                 placeholder="Ask anything about your documents..."
                 onChange={(e) => onChange(e.target.value)}
                 onKeyDown={(e) => {
-                    if (e.key === "Enter" && !loading) {
+                    if (e.key === "Enter" && !e.shiftKey && !loading) {
+                        e.preventDefault();
                         onSend();
                     }
                 }}
             />
 
             <Button
-
+                className="h-14 px-7 rounded-xl"
                 onClick={onSend}
-
                 disabled={loading}
-
             >
-
-                <Send className="w-4 h-4 mr-2" />
-
+                <Send className="mr-2 h-5 w-5" />
                 Send
-
             </Button>
 
         </div>
