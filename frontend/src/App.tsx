@@ -45,7 +45,7 @@ export default function App() {
                         path="/graph"
                         element={<Graph />}
                     />
-
+                    <Route path="/graph" element={<Graph />} />
                 </Route>
 
             </Routes>
