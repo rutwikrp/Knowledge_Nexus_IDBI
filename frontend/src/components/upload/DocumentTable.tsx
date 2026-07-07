@@ -1,54 +1,56 @@
-import {
-    Card,
-    CardContent,
-} from "@/components/ui/card";
+import { useEffect, useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { getDocuments } from "@/services/documentService";
 
-const documents = [
-
-    {
-        name: "Kubernetes-for-Beginners.pdf",
-        chunks: 134,
-        status: "Indexed",
-    },
-
-];
+interface Document {
+    id: string;
+    title: string;
+    chunks: number;
+    status: string;
+}
 
 export default function DocumentTable() {
 
-    return (
+    const [documents, setDocuments] = useState<Document[]>([]);
 
+    async function loadDocuments() {
+        try {
+            const data = await getDocuments();
+            setDocuments(data);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    useEffect(() => {
+        loadDocuments();
+    }, []);
+
+    return (
         <Card className="mt-8">
 
             <CardContent className="p-6">
 
                 <h2 className="text-xl font-semibold mb-6">
-
                     Uploaded Documents
-
                 </h2>
 
                 <table className="w-full">
 
                     <thead>
 
-                        <tr className="text-left border-b">
+                        <tr className="border-b text-left">
 
                             <th className="pb-3">
-
                                 Document
-
                             </th>
 
                             <th>
-
                                 Chunks
-
                             </th>
 
                             <th>
-
                                 Status
-
                             </th>
 
                         </tr>
@@ -60,26 +62,16 @@ export default function DocumentTable() {
                         {documents.map((doc) => (
 
                             <tr
-                                key={doc.name}
+                                key={doc.id}
                                 className="border-b h-14"
                             >
 
-                                <td>
+                                <td>{doc.title}</td>
 
-                                    {doc.name}
-
-                                </td>
-
-                                <td>
-
-                                    {doc.chunks}
-
-                                </td>
+                                <td>{doc.chunks}</td>
 
                                 <td className="text-green-600">
-
                                     ✓ {doc.status}
-
                                 </td>
 
                             </tr>
@@ -93,7 +85,5 @@ export default function DocumentTable() {
             </CardContent>
 
         </Card>
-
     );
-
 }

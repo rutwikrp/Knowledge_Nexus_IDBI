@@ -16,3 +16,8 @@ export async function uploadDocument(file: File) {
 
   return response.data;
 }
+
+export async function getDocuments() {
+    const response = await api.get("/documents");
+    return response.data;
+}

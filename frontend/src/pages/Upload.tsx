@@ -25,18 +25,19 @@ export default function Upload() {
       const response =
         await uploadDocument(selectedFile);
 
-      console.log(response);
+      console.log(response.message);
 
       alert("Document uploaded successfully!");
 
       setSelectedFile(null);
 
-    } catch (err) {
+    } catch (err: any) {
+      console.error("FULL ERROR:", err);
+      console.error("RESPONSE:", err.response);
+      console.error("DATA:", err.response?.data);
+      console.error("MESSAGE:", err.message);
 
-      console.error(err);
-
-      alert("Upload failed.");
-
+      alert(err.message);
     } finally {
 
       setUploading(false);
