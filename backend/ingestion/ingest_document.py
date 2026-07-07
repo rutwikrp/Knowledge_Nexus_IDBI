@@ -98,6 +98,12 @@ def ingest_pdf(pdf_path):
     print(
         f"Stored {total_chunks} chunks from {filename}"    
     )
+    return {
+        "success": True,
+        "message": "Document uploaded successfully",
+        "filename": filename,
+        "chunks": total_chunks,
+    }
 
 
 if __name__ == "__main__":
