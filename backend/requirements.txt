@@ -6,3 +6,6 @@ pgvector
 sentence-transformers
 pypdf
 python-multipart
+ollama
+nltk 
+rank_bm25
