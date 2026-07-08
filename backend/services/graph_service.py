@@ -1,34 +1,27 @@
 from db.session  import SessionLocal
-from db.session import DATABASE_URL
 from sqlalchemy import text
-
+from sqlalchemy.exc import SQLAlchemyError
 
 class GraphService:
 
     def __init__(self):
         self.db = SessionLocal()
 
-    def add_node(self, name: str):
+    def add_node(self, name: str, type: str):
 
         try:
-            print(DATABASE_URL)
-            print("ADDING NODE:", name)
+            
+            
 
             self.db.execute(
                 text("""
-                    INSERT INTO graph_nodes(name)
-                    VALUES (:name)
+                    INSERT INTO graph_nodes(name,type)
+                    VALUES (:name, :type)
                     ON CONFLICT(name) DO NOTHING
                 """),
-                {"name": name}
+                {"name": name, "type": type}
             )
 
-            self.db.commit()
-            count = self.db.execute(
-                text("SELECT COUNT(*) FROM graph_nodes")
-                ).scalar()
-
-            print(f"NODE COUNT: {count}")
 
         except SQLAlchemyError as e:
             self.db.rollback()
@@ -48,6 +41,7 @@ class GraphService:
                 (SELECT id FROM graph_nodes WHERE name=:target),
                 :relation
             )
+            ON CONFLICT DO NOTHING
             """),
             {
                 "source": source,
@@ -56,7 +50,7 @@ class GraphService:
             }
         )
 
-        self.db.commit()
+        
     
     def get_graph(self):
 
