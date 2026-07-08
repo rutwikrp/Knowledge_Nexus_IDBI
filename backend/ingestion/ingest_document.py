@@ -8,9 +8,15 @@ from ingestion.pdf_loader import extract_pdf_text
 from ingestion.chunker import chunk_text
 
 from embeddings.embedding_service import get_embedding
+from services.graph_service import GraphService
+from services.entity_extractor import EntityExtractor, extract_edges
+
+
 
 
 def ingest_pdf(pdf_path):
+    graph_service = GraphService()
+    extractor = EntityExtractor()
 
     filename = os.path.basename(pdf_path)
 
@@ -94,7 +100,17 @@ def ingest_pdf(pdf_path):
                 )
 
                 total_chunks += 1
+                entities = extractor.extract(chunk)
+                print("ENTITIES:", entities)
 
+                for entity in entities:
+                    graph_service.add_node(entity)
+
+                edges = extract_edges(entities)
+                print("EDGES:", edges)
+
+                for source, target, relation in edges:
+                    graph_service.add_edge(source, target, relation)
     print(
         f"Stored {total_chunks} chunks from {filename}"    
     )
