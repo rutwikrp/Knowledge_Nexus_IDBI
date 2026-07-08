@@ -1,10 +1,9 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 from services.graph_service import GraphService
 
-router = APIRouter(prefix="/graph", tags=["Graph"])
+router = APIRouter()
 
-graph_service = GraphService()
-
-@router.get("")
-def get_graph():
-    return graph_service.get_graph()
+@router.get("/graph")
+def get_graph(query: str | None = Query(default=None)):
+    service = GraphService()
+    return service.get_graph(query)
