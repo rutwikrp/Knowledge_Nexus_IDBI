@@ -1,13 +1,16 @@
 from fastapi import APIRouter
 
-router = APIRouter(prefix="/dashboard", tags=["Dashboard"])
+from services.dashboard_service import DashboardService
+
+router = APIRouter(
+    prefix="/dashboard",
+    tags=["Dashboard"]
+)
 
 
 @router.get("")
 def dashboard():
 
-    return {
-        "documents": 12,
-        "chunks": 430,
-        "questions": 58
-    }
+    service = DashboardService()
+
+    return service.get_stats()
