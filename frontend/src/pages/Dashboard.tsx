@@ -1,30 +1,59 @@
 import {
     FileText,
     Database,
-    MessageSquare,
-    Network
+    Network,
+    Share2,
 } from "lucide-react";
 
+import { useEffect, useState } from "react";
+
+import { getDashboardStats } from "@/services/dashboardService";
+
 import StatCard from "@/components/dashboard/StatCard";
+import ChunkDistributionChart from "@/components/dashboard/ChunkDistributionChart";
+import ChunksBarChart from "@/components/dashboard/ChunksBarChart";
+
+import {
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
 
 export default function Dashboard() {
 
-    return (
+    const [stats, setStats] = useState<any>(null);
 
+    useEffect(() => {
+
+        async function loadDashboard() {
+            const data = await getDashboardStats();
+            setStats(data);
+        }
+
+        loadDashboard();
+
+    }, []);
+
+    if (!stats) {
+        return (
+            <div className="p-10">
+                Loading dashboard...
+            </div>
+        );
+    }
+
+    return (
         <>
 
             <div className="mb-8">
 
                 <h1 className="text-3xl font-bold">
-
                     Dashboard
-
                 </h1>
 
                 <p className="text-gray-500">
-
                     Enterprise AI Knowledge Platform
-
                 </p>
 
             </div>
@@ -33,32 +62,130 @@ export default function Dashboard() {
 
                 <StatCard
                     title="Documents"
-                    value={1}
+                    value={stats.documents}
                     icon={FileText}
                 />
 
                 <StatCard
                     title="Knowledge Chunks"
-                    value={134}
+                    value={stats.chunks}
                     icon={Database}
                 />
 
                 <StatCard
-                    title="Questions Asked"
-                    value={0}
-                    icon={MessageSquare}
-                />
-
-                <StatCard
                     title="Knowledge Nodes"
-                    value={0}
+                    value={stats.nodes}
                     icon={Network}
                 />
 
+                <StatCard
+                    title="Relationships"
+                    value={stats.edges}
+                    icon={Share2}
+                />
+
+            </div>
+            <div className="grid grid-cols-2 gap-6 mt-8">
+
+                <Card>
+
+                    <CardHeader>
+
+                        <CardTitle>
+                            Chunk Distribution
+                        </CardTitle>
+
+                    </CardHeader>
+
+                    <CardContent>
+
+                        <ChunkDistributionChart
+                            data={stats.distribution}
+                        />
+
+                    </CardContent>
+
+                </Card>
+
+                <Card>
+
+                    <CardHeader>
+
+                        <CardTitle>
+                            Chunks per Document
+                        </CardTitle>
+
+                    </CardHeader>
+
+                    <CardContent>
+
+                        <ChunksBarChart
+                            data={stats.distribution}
+                        />
+
+                    </CardContent>
+
+                </Card>
+
             </div>
 
+            <Card className="mt-8">
+
+                <CardHeader>
+                    <CardTitle>
+                        Recent Documents
+                    </CardTitle>
+                </CardHeader>
+
+                <CardContent>
+
+                    <table className="w-full">
+
+                        <thead>
+
+                            <tr className="border-b">
+
+                                <th className="text-left py-2">
+                                    Document
+                                </th>
+
+                                <th className="text-right py-2">
+                                    Chunks
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {stats.recent_documents.map((doc: any) => (
+
+                                <tr
+                                    key={doc.id}
+                                    className="border-b"
+                                >
+
+                                    <td className="py-3">
+                                        {doc.title}
+                                    </td>
+
+                                    <td className="text-right">
+                                        {doc.chunks}
+                                    </td>
+
+                                </tr>
+
+                            ))}
+
+                        </tbody>
+
+                    </table>
+
+                </CardContent>
+
+            </Card>
+
         </>
-
     );
-
 }
