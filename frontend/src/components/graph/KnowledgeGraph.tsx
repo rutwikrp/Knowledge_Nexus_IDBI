@@ -11,8 +11,10 @@ import "reactflow/dist/style.css";
 import { useEffect, useState, useMemo } from "react";
 import { fetchGraph } from "@/api/graphService";
 
-
-export default function KnowledgeGraph() {
+interface Props {
+  onNodeSelect?: (node: any) => void;
+}
+export default function KnowledgeGraph({ onNodeSelect, }: Props) {
 
   const [rawNodes, setRawNodes] = useState<Node[]>([]);
   const [rawEdges, setRawEdges] = useState<Edge[]>([]);
@@ -37,8 +39,8 @@ export default function KnowledgeGraph() {
       );
 
       setRawEdges(
-        graph.edges.map((edge: any) => ({
-          id: edge.id,
+        graph.edges.map((edge: any, index: number) => ({
+          id: `${edge.source}-${edge.target}-${index}`,
           source: edge.source,
           target: edge.target,
           label: edge.label,
@@ -48,7 +50,10 @@ export default function KnowledgeGraph() {
       console.error(err);
     }
   }
-   useEffect(() => {
+    useEffect(() => {
+      loadGraph();
+    }, []);
+    useEffect(() => {
       const timer = setTimeout(() => {
           loadGraph(search);
       }, 400);
@@ -145,7 +150,7 @@ export default function KnowledgeGraph() {
 
   }, [rawEdges, rawNodes, search]);
   return (
-    <div className="h-full w-full rounded-xl border bg-white">
+    <div className="w-full">
       <div className="mb-4">
 
           <input
@@ -157,15 +162,19 @@ export default function KnowledgeGraph() {
           />
 
       </div>
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        fitView
-      >
-        <MiniMap />
-        <Controls />
-        <Background gap={18} />
-      </ReactFlow>
+      
+      <div className="h-[650px] w-full rounded-xl border bg-white">
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodeClick={(_, node) => onNodeSelect?.(node)}
+          fitView
+        >
+          <MiniMap />
+          <Controls />
+          <Background gap={18} />
+        </ReactFlow>
+      </div>
     </div>
   );
 }

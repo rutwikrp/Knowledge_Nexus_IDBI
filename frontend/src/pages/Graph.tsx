@@ -1,21 +1,21 @@
+import { useState } from "react";
 import KnowledgeGraph from "@/components/graph/KnowledgeGraph";
+import NodeDetails from "@/components/graph/NodeDetails";
 
 export default function Graph() {
+  const [selectedNode, setSelectedNode] = useState<any>(null);
+
   return (
-    <div className="flex h-full flex-col">
-      <div className="mb-6">
-        <h1 className="text-4xl font-bold">
-          Knowledge Graph
-        </h1>
+    <div className="flex gap-6 h-[760px]">
 
-        <p className="text-muted-foreground">
-          Explore relationships between concepts in your documents.
-        </p>
+      <div className="flex-1">
+        <KnowledgeGraph onNodeSelect={setSelectedNode} />
       </div>
 
-      <div className="flex-1 min-h-0">
-        <KnowledgeGraph />
+      <div className="w-80 shrink-0">
+        <NodeDetails node={selectedNode} />
       </div>
+
     </div>
   );
 }
