@@ -11,28 +11,28 @@ export default function ChunksBarChart({ data }: any) {
 
     return (
 
-        <ResponsiveContainer width="100%" height={320}>
+        <ResponsiveContainer width="100%" height={180} >
 
-            <BarChart data={data} margin={{ bottom: 20 }}>
+            <BarChart data={data} margin={{ bottom: 20 }} barCategoryGap="35%">
 
                 <XAxis dataKey="title" angle={-30}
                     textAnchor="end"
-                    height={80}
+                    height={50}
                     interval={0}
                     tick={{ fontSize: 11 }}
                     tickFormatter={(value) =>
                         {
                             const cleaned = value.replace(".pdf", "");
-                            return cleaned.length > 18 ? cleaned.substring(0, 18) + "..." : cleaned;
+                            return cleaned.length > 14 ? cleaned.substring(0, 18) + "..." : cleaned;
                         }
                     }
                 />
 
-                <YAxis />
+                <YAxis tick={{ fontSize: 11 }} width={30}/>
 
                 <Tooltip />
 
-                <Bar dataKey="chunks" fill="#6366f1" radius={[4, 4, 0, 0]}/>
+                <Bar dataKey="chunks" fill="#6366f1" radius={[4, 4, 0, 0]} maxBarSize={40}/>
 
             </BarChart>
 

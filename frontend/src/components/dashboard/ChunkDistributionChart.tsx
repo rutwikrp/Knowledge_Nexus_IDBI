@@ -19,7 +19,7 @@ export default function ChunkDistributionChart({ data }: any) {
 
     return (
 
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={180}>
 
             <PieChart>
 
@@ -27,7 +27,7 @@ export default function ChunkDistributionChart({ data }: any) {
                     data={data}
                     dataKey="chunks"
                     nameKey="title"
-                    outerRadius={100}
+                    outerRadius={65}
                     label={false}
                 >
 

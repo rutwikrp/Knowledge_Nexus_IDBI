@@ -14,7 +14,7 @@ export default function StatCard({
 }: Props) {
   return (
     <Card>
-      <CardContent className="flex justify-between items-center p-6">
+      <CardContent className="flex justify-between items-center py-4 px-5">
 
         <div>
 
@@ -22,7 +22,7 @@ export default function StatCard({
             {title}
           </p>
 
-          <h2 className="text-3xl font-bold mt-2">
+          <h2 className="text-2xl font-bold mt-1">
             {value}
           </h2>
 
@@ -30,7 +30,7 @@ export default function StatCard({
 
         <Icon
           className="text-blue-600"
-          size={32}
+          size={28}
         />
 
       </CardContent>
