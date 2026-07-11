@@ -46,7 +46,7 @@ export default function Dashboard() {
     return (
         <>
 
-            <div className="mb-8">
+            <div className="mb-4">
 
                 <h1 className="text-3xl font-bold">
                     Dashboard
@@ -58,7 +58,7 @@ export default function Dashboard() {
 
             </div>
 
-            <div className="grid grid-cols-4 gap-6">
+            <div className="grid grid-cols-4 gap-4">
 
                 <StatCard
                     title="Documents"
@@ -85,19 +85,19 @@ export default function Dashboard() {
                 />
 
             </div>
-            <div className="grid grid-cols-2 gap-6 mt-8">
+            <div className="grid grid-cols-2 gap-4 mt-4">
 
                 <Card>
 
-                    <CardHeader>
+                    <CardHeader className="pb-2">
 
-                        <CardTitle>
+                        <CardTitle className="text-base">
                             Chunk Distribution
                         </CardTitle>
 
                     </CardHeader>
 
-                    <CardContent>
+                    <CardContent className="h-[180px]">
 
                         <ChunkDistributionChart
                             data={stats.distribution}
@@ -109,15 +109,15 @@ export default function Dashboard() {
 
                 <Card>
 
-                    <CardHeader>
+                    <CardHeader className="pb-2">
 
-                        <CardTitle>
+                        <CardTitle className="text-base">
                             Chunks per Document
                         </CardTitle>
 
                     </CardHeader>
 
-                    <CardContent>
+                    <CardContent className="h-[180px]">
 
                         <ChunksBarChart
                             data={stats.distribution}
@@ -129,7 +129,7 @@ export default function Dashboard() {
 
             </div>
 
-            <Card className="mt-8">
+            <Card className="mt-4">
 
                 <CardHeader>
                     <CardTitle>

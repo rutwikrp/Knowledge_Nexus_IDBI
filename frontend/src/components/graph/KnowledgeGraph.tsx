@@ -163,7 +163,7 @@ export default function KnowledgeGraph({ onNodeSelect, }: Props) {
 
       </div>
       
-      <div className="h-[650px] w-full rounded-xl border bg-white">
+      <div className="h-[550px] w-full rounded-xl border bg-white">
         <ReactFlow
           nodes={nodes}
           edges={edges}

@@ -5,15 +5,15 @@ import Navbar from "./Navbar";
 
 export default function AppLayout() {
     return (
-        <div className="flex h-screen overflow-hidden">
+        <div className="flex h-screen">
 
             <Sidebar />
 
-            <div className="flex flex-1 flex-col overflow-hidden">
+            <div className="flex flex-1 flex-col">
 
                 <Navbar />
 
-                <main className="flex-1 overflow-hidden bg-slate-50 p-8">
+                <main className="flex-1 overflow-y-auto bg-slate-50 p-8">
 
                     <Outlet />
 

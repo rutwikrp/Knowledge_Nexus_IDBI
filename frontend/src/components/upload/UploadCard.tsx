@@ -18,13 +18,13 @@ export default function UploadCard({
     return (
         <Card>
 
-            <CardContent className="p-8">
+            <CardContent className="p-5">
 
-                <div className="border-2 border-dashed rounded-xl p-12 text-center">
+                <div className="border-2 border-dashed rounded-xl p-6 text-center">
 
                     <Upload
-                        size={48}
-                        className="mx-auto mb-4 text-blue-600"
+                        size={32}
+                        className="mx-auto mb-2 text-blue-600"
                     />
 
                     <h2 className="text-xl font-semibold">
