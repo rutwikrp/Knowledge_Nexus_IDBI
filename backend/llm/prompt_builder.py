@@ -13,7 +13,9 @@ Instructions:
 - If the answer cannot be found, reply:
   "I couldn't find this information in the provided documents."
 - If multiple documents disagree, mention each viewpoint.
-- Cite the document name and page number for every important statement.
+- Answer in natural language.
+- Do NOT include document names, page numbers, citations, or references in the answer.
+- The application will display source citations separately.
 """
 
     @staticmethod
