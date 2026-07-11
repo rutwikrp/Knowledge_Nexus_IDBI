@@ -16,6 +16,7 @@ export default function Chat() {
 
         if (!question.trim()) return;
 
+        const thinkingId = crypto.randomUUID();
         const userMessage: ChatMessage = {
 
             id: crypto.randomUUID(),
@@ -26,7 +27,11 @@ export default function Chat() {
 
         };
 
-        setMessages((prev) => [...prev, userMessage]);
+        setMessages((prev) => [...prev, userMessage, {
+            id: thinkingId,
+            role: "assistant",
+            content: "Thinking..."
+        }]);
 
         const currentQuestion = question;
 
@@ -38,19 +43,19 @@ export default function Chat() {
 
             const response = await askQuestion(currentQuestion);
 
-            const assistantMessage: ChatMessage = {
+            
 
-                id: crypto.randomUUID(),
-
-                role: "assistant",
-
-                content: response.answer,
-
-                sources: response.sources,
-
-            };
-
-            setMessages((prev) => [...prev, assistantMessage]);
+            setMessages(prev =>
+                prev.map(message =>
+                    message.id === thinkingId
+                        ? {
+                            ...message,
+                            content: response.answer,
+                            sources: response.sources,
+                        }
+                        : message
+                )
+            );
 
         } finally {
 

@@ -4,7 +4,7 @@ export interface Source {
 
     document_name: string;
 
-    page_number: number;
+    page_number: number | string;
 
     rerank_score: number;
 
