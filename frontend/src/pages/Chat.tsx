@@ -16,10 +16,10 @@ export default function Chat() {
 
         if (!question.trim()) return;
 
-        const thinkingId = crypto.randomUUID();
+        const thinkingId =  `thinking-${Date.now()}`;
         const userMessage: ChatMessage = {
 
-            id: crypto.randomUUID(),
+            id: `user-${Date.now()}`,
 
             role: "user",
 
