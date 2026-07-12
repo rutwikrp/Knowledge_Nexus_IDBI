@@ -262,26 +262,29 @@ Knowledge_Nexus/
 # 📸 Screenshots
 
 ### Dashboard
+<img width="1902" height="907" alt="dash" src="https://github.com/user-attachments/assets/3e3f4eb8-e3bb-4c20-8a59-b3ce19a9fb16" />
 
-(Add Screenshot)
 
 ---
 
 ### Chat
 
-(Add Screenshot)
+<img width="1907" height="922" alt="chat" src="https://github.com/user-attachments/assets/557be627-2dcc-4736-93b8-68827a6743d4" />
+
 
 ---
 
 ### Upload
 
-(Add Screenshot)
+<img width="1900" height="900" alt="uplo" src="https://github.com/user-attachments/assets/471ab110-a799-4f70-9563-4eb93ae5e3b2" />
+
 
 ---
 
 ### Knowledge Graph
 
-(Add Screenshot)
+<img width="1907" height="911" alt="graph" src="https://github.com/user-attachments/assets/aeef7a2f-abe2-41fe-bf7e-8f70d6803fd8" />
+
 
 ---
 
