@@ -8,7 +8,7 @@ export default function Navbar() {
 
             <h2 className="font-semibold text-xl">
 
-                Internal AI Knowledge Platform
+                Enterprise AI Knowledge Platform
 
             </h2>
 

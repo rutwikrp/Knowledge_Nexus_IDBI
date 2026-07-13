@@ -53,7 +53,7 @@ export default function Dashboard() {
                 </h1>
 
                 <p className="text-gray-500">
-                    Enterprise AI Knowledge Platform
+                    Knowledge Base Overview
                 </p>
 
             </div>
